@@ -43,6 +43,17 @@ class JsonTextDataWriter:
                     }
                 }
                 json.dump(data, file, indent=4, ensure_ascii=False)
+        
+        with open(self.metadata, encoding="utf-8", mode="r") as file:
+            data = json.load(file)
+        
+        if self.file not in data:
+            data[self.file] = {
+                "locked_file": False,
+                "total_batches": 0
+            }
+            with open(self.metadata, encoding="utf-8", mode="w") as file:
+                json.dump(data, file, indent=4, ensure_ascii=False)
 
     def write(self, text_sentence: str):
         self.total_batches += 1
