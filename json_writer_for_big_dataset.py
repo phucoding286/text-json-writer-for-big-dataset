@@ -67,7 +67,8 @@ class JsonTextDataWriter:
 
         file_write_object = open(self.file, mode="a", encoding=self.encoding)
         file_load_object = open(self.file, mode="r", encoding=self.encoding)
-
+        
+        text_sentence = text_sentence.replace("\n", "\\n")
         if self.total_batches > 1:
             file_write_object.write(",\n    " + f'"{text_sentence}"')
         else:
